@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="MyBatisSql" default="main" basedir=".">
+
+	<description>mobile game timespace</description>
+
+	<property name="projname" value="MyBatisSql" />
+
+	<property name="version" value="0.0.0.1" />
+
+	<property name="lib" location="../mmoSetting/mlib" />
+
+	<path id="lib.classpath">
+		<fileset dir="${lib}" includes="*.jar" />
+	</path>
+
+	<property name="src" location="world" />
+	<property name="build.src" location="build/src" />
+
+	<property name="build.classes" location="build/classes" />
+	<property name="build.jars" location="build/jars" />
+	<property name="dist" location="dist" />
+
+	<!--<path id="groovy.classpath"> 
+	       <pathelement path="${build.classes}"/>  
+	      <fileset dir="${lib}">
+	            <include name="*.jar"/>
+	        </fileset>
+	    </path>-->
+
+
+	<target name="main" depends="compile,jar,clean" />
+
+	<target name="clean">
+		<delete dir="build" />
+		<delete dir="dist" />
+	</target>
+
+	<target name="compile">
+		<mkdir dir="${build.classes}" />
+		<mkdir dir="${build.src}" />
+
+		<copy todir="${build.src}">
+			<fileset dir="${src}">
+			</fileset>
+		</copy>
+
+		<javac destdir="${build.classes}" debug="true" source="1.8" target="1.8" encoding="UTF-8" includeantruntime="false" optimize="on" classpathref="lib.classpath">
+			<!--<classpath refid="lib.classpath"/>-->
+
+			<src path="${build.src}" />
+		</javac>
+
+		<!--<copy todir="${build.classes}">
+			<fileset dir="${build.src}">
+				<include name="beans.xml"/>
+			</fileset>
+		</copy>-->
+
+	</target>
+
+	<!--
+	<target name="groovy">
+	        <groovyc destdir="${build.classes}"
+	         srcdir="${src}/groovy"    listfiles="true" encoding="UTF-8"> 
+	           <classpath refid="groovy.classpath"/>
+	        </groovyc>
+	    </target>
+	    -->
+
+	<target name="jar" depends="compile">
+		<mkdir dir="${build.jars}" />
+		<mkdir dir="${dist}" />
+		<jar destfile="${build.jars}/${projname}.jar">
+			<fileset dir="${build.classes}">
+				<!--<exclude name="groovy/**/*"/>-->
+			</fileset>
+			<!-- set mainfest information to manifest -->
+			<manifest>
+				<attribute name="Manifest-Version" value="${version}" />
+				<!--<attribute name="Class-Path" value= 
+					"mgslib.jar
+					 third.jar
+					 mmoPub.jar
+					" />
+	            	
+				<attribute name="Main-Class" value="app.service.Main" />-->
+				<!--<attribute name="Main-Class" value="cn.ehome.game.timespace.pub.ManageTool" />-->
+			</manifest>
+		</jar>
+		<copy todir="${build.jars}">
+			<!--<fileset dir="${src}" includes="**/*"/>-->
+
+			<!--<fileset dir="${src}" includes="groovy/**/*"/>-->
+
+			<!--
+  		<fileset dir="${src}">
+  			<include name="log4j.properties"/>
+  			<include name="commons-logging.properties"/>
+  		</fileset>
+  		-->
+			<fileset dir="${lib}" includes="*.jar" />
+		</copy>
+		<copy todir="${lib}">
+			<fileset dir="${build.jars}" includes="${projname}.jar" />
+		</copy>
+
+		<zip destfile="${dist}/${projname}${version}.zip" basedir="${build.jars}">
+			<include name="mgslib.jar" />
+			<include name="third.jar" />
+			<include name="mmoPub.jar" />
+			<include name="${projname}.jar" />
+			<!--
+			<include name="session.jar"/>
+			<include name="protocol.jar"/>
+			-->
+		</zip>
+	</target>
+	<!-- ================================= 
+          target:               
+         ================================= -->
+
+</project>

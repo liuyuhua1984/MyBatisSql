@@ -36,17 +36,16 @@ public class MybatisCreater {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		List<String> warnings = new ArrayList<String>();
-		boolean overwrite = true;
+		boolean overwrite = true;//是否覆盖
 		try {
 			String dir = System.getProperty("user.dir");
 			File configFile = new File(dir + "/generatorConfig.xml");
 			ConfigurationParser cp = new ConfigurationParser(warnings);
-			
 			Configuration config = cp.parseConfiguration(configFile);
-			
 			DefaultShellCallback callback = new DefaultShellCallback(overwrite);
 			MyBatisGenerator myBatisGenerator = new MyBatisGenerator(config, callback, warnings);
 			myBatisGenerator.generate(null);
+			System.err.println("执行完成!!!!");
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (XMLParserException e) {
