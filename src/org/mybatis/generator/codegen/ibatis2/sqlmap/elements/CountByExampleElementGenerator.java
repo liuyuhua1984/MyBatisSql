@@ -25,42 +25,38 @@ import org.mybatis.generator.api.dom.xml.XmlElement;
  * 
  */
 public class CountByExampleElementGenerator extends AbstractXmlElementGenerator {
-
-    public CountByExampleElementGenerator() {
-        super();
-    }
-
-    @Override
-    public void addElements(XmlElement parentElement) {
-        XmlElement answer = new XmlElement("select"); //$NON-NLS-1$
-
-        answer.addAttribute(new Attribute(
-                "id", introspectedTable.getCountByExampleStatementId())); //$NON-NLS-1$
-        answer.addAttribute(new Attribute(
-                "parameterClass", introspectedTable.getExampleType())); //$NON-NLS-1$
-        answer.addAttribute(new Attribute("resultClass", "java.lang.Long")); //$NON-NLS-1$ //$NON-NLS-2$
-
-        context.getCommentGenerator().addComment(answer);
-
-        StringBuilder sb = new StringBuilder();
-        sb.append("select count(*) from "); //$NON-NLS-1$
-        sb.append(introspectedTable
-                .getAliasedFullyQualifiedTableNameAtRuntime());
-        answer.addElement(new TextElement(sb.toString()));
-
-        XmlElement includeElement = new XmlElement("include"); //$NON-NLS-1$
-        sb.setLength(0);
-        sb.append(introspectedTable.getIbatis2SqlMapNamespace());
-        sb.append('.');
-        sb.append(introspectedTable.getExampleWhereClauseId());
-        includeElement.addAttribute(new Attribute("refid", //$NON-NLS-1$
-                sb.toString()));
-
-        answer.addElement(includeElement);
-
-        if (context.getPlugins().sqlMapCountByExampleElementGenerated(
-                answer, introspectedTable)) {
-            parentElement.addElement(answer);
-        }
-    }
+	
+	public CountByExampleElementGenerator() {
+		super();
+	}
+	
+	@Override
+	public void addElements(XmlElement parentElement) {
+		XmlElement answer = new XmlElement("select"); //$NON-NLS-1$
+		
+		answer.addAttribute(new Attribute("id", introspectedTable.getCountByExampleStatementId())); //$NON-NLS-1$
+		answer.addAttribute(new Attribute("parameterClass", introspectedTable.getExampleType())); //$NON-NLS-1$
+		answer.addAttribute(new Attribute("resultClass", "java.lang.Long")); //$NON-NLS-1$ //$NON-NLS-2$
+		
+		context.getCommentGenerator().addComment(answer);
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("select count(*) from "); //$NON-NLS-1$
+		sb.append(introspectedTable.getAliasedFullyQualifiedTableNameAtRuntime());
+		answer.addElement(new TextElement(sb.toString()));
+		
+		XmlElement includeElement = new XmlElement("include"); //$NON-NLS-1$
+		sb.setLength(0);
+		sb.append(introspectedTable.getIbatis2SqlMapNamespace());
+		sb.append('.');
+		sb.append(introspectedTable.getExampleWhereClauseId());
+		includeElement.addAttribute(new Attribute("refid", //$NON-NLS-1$
+		        sb.toString()));
+		
+		answer.addElement(includeElement);
+		
+		if (context.getPlugins().sqlMapCountByExampleElementGenerated(answer, introspectedTable)) {
+			parentElement.addElement(answer);
+		}
+	}
 }

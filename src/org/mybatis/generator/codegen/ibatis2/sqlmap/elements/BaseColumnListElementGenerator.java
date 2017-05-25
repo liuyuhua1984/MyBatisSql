@@ -29,44 +29,41 @@ import org.mybatis.generator.codegen.ibatis2.Ibatis2FormattingUtilities;
  * 
  */
 public class BaseColumnListElementGenerator extends AbstractXmlElementGenerator {
-
-    public BaseColumnListElementGenerator() {
-        super();
-    }
-
-    @Override
-    public void addElements(XmlElement parentElement) {
-        XmlElement answer = new XmlElement("sql"); //$NON-NLS-1$
-
-        answer.addAttribute(new Attribute("id", //$NON-NLS-1$
-                introspectedTable.getBaseColumnListId()));
-
-        context.getCommentGenerator().addComment(answer);
-
-        StringBuilder sb = new StringBuilder();
-        Iterator<IntrospectedColumn> iter = introspectedTable
-                .getNonBLOBColumns().iterator();
-        while (iter.hasNext()) {
-            sb.append(Ibatis2FormattingUtilities.getSelectListPhrase(iter
-                    .next()));
-
-            if (iter.hasNext()) {
-                sb.append(", "); //$NON-NLS-1$
-            }
-
-            if (sb.length() > 80) {
-                answer.addElement(new TextElement(sb.toString()));
-                sb.setLength(0);
-            }
-        }
-
-        if (sb.length() > 0) {
-            answer.addElement(new TextElement(sb.toString()));
-        }
-
-        if (context.getPlugins().sqlMapBaseColumnListElementGenerated(
-                answer, introspectedTable)) {
-            parentElement.addElement(answer);
-        }
-    }
+	
+	public BaseColumnListElementGenerator() {
+		super();
+	}
+	
+	@Override
+	public void addElements(XmlElement parentElement) {
+		XmlElement answer = new XmlElement("sql"); //$NON-NLS-1$
+		
+		answer.addAttribute(new Attribute("id", //$NON-NLS-1$
+		        introspectedTable.getBaseColumnListId()));
+		
+		context.getCommentGenerator().addComment(answer);
+		
+		StringBuilder sb = new StringBuilder();
+		Iterator<IntrospectedColumn> iter = introspectedTable.getNonBLOBColumns().iterator();
+		while (iter.hasNext()) {
+			sb.append(Ibatis2FormattingUtilities.getSelectListPhrase(iter.next()));
+			
+			if (iter.hasNext()) {
+				sb.append(", "); //$NON-NLS-1$
+			}
+			
+			if (sb.length() > 80) {
+				answer.addElement(new TextElement(sb.toString()));
+				sb.setLength(0);
+			}
+		}
+		
+		if (sb.length() > 0) {
+			answer.addElement(new TextElement(sb.toString()));
+		}
+		
+		if (context.getPlugins().sqlMapBaseColumnListElementGenerated(answer, introspectedTable)) {
+			parentElement.addElement(answer);
+		}
+	}
 }

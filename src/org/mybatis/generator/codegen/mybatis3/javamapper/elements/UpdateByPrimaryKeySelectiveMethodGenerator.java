@@ -29,52 +29,45 @@ import org.mybatis.generator.api.dom.java.Parameter;
  * @author Jeff Butler
  * 
  */
-public class UpdateByPrimaryKeySelectiveMethodGenerator extends
-        AbstractJavaMapperMethodGenerator {
-
-    public UpdateByPrimaryKeySelectiveMethodGenerator() {
-        super();
-    }
-
-    @Override
-    public void addInterfaceElements(Interface interfaze) {
-        Set<FullyQualifiedJavaType> importedTypes = new TreeSet<FullyQualifiedJavaType>();
-        FullyQualifiedJavaType parameterType;
-
-        if (introspectedTable.getRules().generateRecordWithBLOBsClass()) {
-            parameterType = new FullyQualifiedJavaType(introspectedTable
-                    .getRecordWithBLOBsType());
-        } else {
-            parameterType = new FullyQualifiedJavaType(introspectedTable
-                    .getBaseRecordType());
-        }
-
-        importedTypes.add(parameterType);
-
-        Method method = new Method();
-        method.setVisibility(JavaVisibility.PUBLIC);
-        method.setReturnType(FullyQualifiedJavaType.getIntInstance());
-        method.setName(introspectedTable
-                .getUpdateByPrimaryKeySelectiveStatementId());
-        method.addParameter(new Parameter(parameterType, "record")); //$NON-NLS-1$
-
-        context.getCommentGenerator().addGeneralMethodComment(method,
-                introspectedTable);
-
-        addMapperAnnotations(method);
-        
-        if (context.getPlugins()
-                .clientUpdateByPrimaryKeySelectiveMethodGenerated(method,
-                        interfaze, introspectedTable)) {
-            addExtraImports(interfaze);
-            interfaze.addImportedTypes(importedTypes);
-            interfaze.addMethod(method);
-        }
-    }
-
-    public void addMapperAnnotations(Method method) {
-    }
-
-    public void addExtraImports(Interface interfaze) {
-    }
+public class UpdateByPrimaryKeySelectiveMethodGenerator extends AbstractJavaMapperMethodGenerator {
+	
+	public UpdateByPrimaryKeySelectiveMethodGenerator() {
+		super();
+	}
+	
+	@Override
+	public void addInterfaceElements(Interface interfaze) {
+		Set<FullyQualifiedJavaType> importedTypes = new TreeSet<FullyQualifiedJavaType>();
+		FullyQualifiedJavaType parameterType;
+		
+		if (introspectedTable.getRules().generateRecordWithBLOBsClass()) {
+			parameterType = new FullyQualifiedJavaType(introspectedTable.getRecordWithBLOBsType());
+		} else {
+			parameterType = new FullyQualifiedJavaType(introspectedTable.getBaseRecordType());
+		}
+		
+		importedTypes.add(parameterType);
+		
+		Method method = new Method();
+		method.setVisibility(JavaVisibility.PUBLIC);
+		method.setReturnType(FullyQualifiedJavaType.getIntInstance());
+		method.setName(introspectedTable.getUpdateByPrimaryKeySelectiveStatementId());
+		method.addParameter(new Parameter(parameterType, "record")); //$NON-NLS-1$
+		
+		context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
+		
+		addMapperAnnotations(method);
+		
+		if (context.getPlugins().clientUpdateByPrimaryKeySelectiveMethodGenerated(method, interfaze, introspectedTable)) {
+			addExtraImports(interfaze);
+			interfaze.addImportedTypes(importedTypes);
+			interfaze.addMethod(method);
+		}
+	}
+	
+	public void addMapperAnnotations(Method method) {
+	}
+	
+	public void addExtraImports(Interface interfaze) {
+	}
 }

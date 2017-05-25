@@ -8,7 +8,7 @@
 	<properties resource="init.properties" />
 	<classPathEntry location="${classPath}" />
 
-	<context id="DB2Tables"  targetRuntime="MyBatis3">
+	<context id="DB2Tables"  defaultModelType ="flat" targetRuntime="MyBatis3">
 
 		<!--<plugin type="com.lyh.game.main.SerializablePlugin" />-->
 
@@ -39,21 +39,29 @@
 			<property name="trimStrings" value="true" />
 			<!-- 设置一个根对象， 如果设置了这个根对象，那么生成的keyClass或者recordClass会继承这个类；在Table的rootClass属性中可以覆盖该选项 
 				注意：如果在key class或者record class中有root class相同的属性，MBG就不会重新生成这些属性了，包括： 1，属性名相同，类型相同，有相同的getter/setter方法； -->
-			<property name="rootClass" value="com.lyh.game.mybaits.domain.BaseDomain" />
+			<property name="rootClass" value="com.lyh.game.mybatis.domain.BaseDomain" />
 		</javaModelGenerator>
 
 		<sqlMapGenerator targetPackage="${mapper_sql_package}"
-			targetProject="../GamePlatformManager/resource">
+			targetProject="res">
 			<property name="enableSubPackages" value="true" />
 		</sqlMapGenerator>
 
 		<javaClientGenerator type="XMLMAPPER"
-			targetPackage="${xml_mapper_package}" targetProject="../GamePlatformManager/src">
+			targetPackage="${xml_mapper_package}" targetProject="res">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 
 		<table tableName="%" 
-		 enableCountByExample="false" enableSelectByExample="false" enableDeleteByExample="false" enableUpdateByExample="false" selectByExampleQueryId="false" >
+		 enableCountByExample="false" 
+		 enableSelectByExample="false" 
+		 enableDeleteByExample="false" 
+		 enableUpdateByExample="false" 
+		 selectByExampleQueryId="false"
+		 enableSelectByPrimaryKey ="true" 
+		 enableUpdateByPrimaryKey="up"
+		 enableDeleteByPrimaryKey ="true"
+		>
 			
 			<!-- 如果设置为true，生成的model类会直接使用column本身的名字，而不会再使用驼峰命名方法，比如BORN_DATE，生成的属性名字就是BORN_DATE,而不会是bornDate -->
 			 <property name="useActualColumnNames"  value="true" />

@@ -24,10 +24,8 @@ import org.mybatis.generator.api.dom.xml.Attribute;
 import org.mybatis.generator.api.dom.xml.XmlElement;
 
 /**
- * This class is used to specify a renaming rule for columns in a table. This
- * renaming rule will be run against all column names before calculating the
- * corresponding property name. The most common use case is when columns in a
- * table are all prefixed by a certain value.
+ * This class is used to specify a renaming rule for columns in a table. This renaming rule will be run against all column names before calculating the corresponding property name. The most common use
+ * case is when columns in a table are all prefixed by a certain value.
  * 
  * For example, if columns in a table are named:
  * 
@@ -38,57 +36,53 @@ import org.mybatis.generator.api.dom.xml.XmlElement;
  * <li>CUST_STATE</li>
  * </ul>
  * 
- * it might be annoying to have the generated properties all containing the CUST
- * prefix. This class can be used to remove the prefix by specifying
+ * it might be annoying to have the generated properties all containing the CUST prefix. This class can be used to remove the prefix by specifying
  * 
  * <ul>
  * <li>searchString = "^CUST"</li>
  * <li>replaceString=""</li>
  * </ul>
  * 
- * Note that internally, the generator uses the
- * <code>java.util.regex.Matcher.replaceAll</code> method for this function. See
- * the documentation of that method for example of the regular expression
+ * Note that internally, the generator uses the <code>java.util.regex.Matcher.replaceAll</code> method for this function. See the documentation of that method for example of the regular expression
  * language used in Java.
  * 
  * @author Jeff Butler
  * 
  */
 public class ColumnRenamingRule {
-    private String searchString;
-    private String replaceString;
-
-    public String getReplaceString() {
-        return replaceString;
-    }
-
-    public void setReplaceString(String replaceString) {
-        this.replaceString = replaceString;
-    }
-
-    public String getSearchString() {
-        return searchString;
-    }
-
-    public void setSearchString(String searchString) {
-        this.searchString = searchString;
-    }
-
-    public void validate(List<String> errors, String tableName) {
-        if (!stringHasValue(searchString)) {
-            errors.add(getString("ValidationError.14", tableName)); //$NON-NLS-1$
-        }
-    }
-
-    public XmlElement toXmlElement() {
-        XmlElement xmlElement = new XmlElement("columnRenamingRule"); //$NON-NLS-1$
-        xmlElement.addAttribute(new Attribute("searchString", searchString)); //$NON-NLS-1$
-
-        if (replaceString != null) {
-            xmlElement.addAttribute(new Attribute(
-                    "replaceString", replaceString)); //$NON-NLS-1$
-        }
-
-        return xmlElement;
-    }
+	private String searchString;
+	private String replaceString;
+	
+	public String getReplaceString() {
+		return replaceString;
+	}
+	
+	public void setReplaceString(String replaceString) {
+		this.replaceString = replaceString;
+	}
+	
+	public String getSearchString() {
+		return searchString;
+	}
+	
+	public void setSearchString(String searchString) {
+		this.searchString = searchString;
+	}
+	
+	public void validate(List<String> errors, String tableName) {
+		if (!stringHasValue(searchString)) {
+			errors.add(getString("ValidationError.14", tableName)); //$NON-NLS-1$
+		}
+	}
+	
+	public XmlElement toXmlElement() {
+		XmlElement xmlElement = new XmlElement("columnRenamingRule"); //$NON-NLS-1$
+		xmlElement.addAttribute(new Attribute("searchString", searchString)); //$NON-NLS-1$
+		
+		if (replaceString != null) {
+			xmlElement.addAttribute(new Attribute("replaceString", replaceString)); //$NON-NLS-1$
+		}
+		
+		return xmlElement;
+	}
 }

@@ -25,32 +25,32 @@ import org.mybatis.generator.api.dom.xml.XmlElement;
 import org.mybatis.generator.internal.util.StringUtility;
 
 public class ConnectionFactoryConfiguration extends TypedPropertyHolder {
-
-    public ConnectionFactoryConfiguration() {
-        super();
-    }
-    
-    public void validate(List<String> errors) {
-        if (getConfigurationType() == null || "DEFAULT".equals(getConfigurationType())) { //$NON-NLS-1$
-            if (!StringUtility.stringHasValue(getProperty("driverClass"))) { //$NON-NLS-1$
-                errors.add(getString("ValidationError.18", "connectionFactory", "driverClass")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-            }
-
-            if (!StringUtility.stringHasValue(getProperty("connectionURL"))) { //$NON-NLS-1$
-                errors.add(getString("ValidationError.18", "connectionFactory", "connectionURL")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-            }
-        }
-    }
-
-    public XmlElement toXmlElement() {
-        XmlElement xmlElement = new XmlElement("connectionFactory"); //$NON-NLS-1$
-
-        if (stringHasValue(getConfigurationType())) {
-            xmlElement.addAttribute(new Attribute("type", getConfigurationType())); //$NON-NLS-1$
-        }
-
-        addPropertyXmlElements(xmlElement);
-
-        return xmlElement;
-    }
+	
+	public ConnectionFactoryConfiguration() {
+		super();
+	}
+	
+	public void validate(List<String> errors) {
+		if (getConfigurationType() == null || "DEFAULT".equals(getConfigurationType())) { //$NON-NLS-1$
+			if (!StringUtility.stringHasValue(getProperty("driverClass"))) { //$NON-NLS-1$
+				errors.add(getString("ValidationError.18", "connectionFactory", "driverClass")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			}
+			
+			if (!StringUtility.stringHasValue(getProperty("connectionURL"))) { //$NON-NLS-1$
+				errors.add(getString("ValidationError.18", "connectionFactory", "connectionURL")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			}
+		}
+	}
+	
+	public XmlElement toXmlElement() {
+		XmlElement xmlElement = new XmlElement("connectionFactory"); //$NON-NLS-1$
+		
+		if (stringHasValue(getConfigurationType())) {
+			xmlElement.addAttribute(new Attribute("type", getConfigurationType())); //$NON-NLS-1$
+		}
+		
+		addPropertyXmlElements(xmlElement);
+		
+		return xmlElement;
+	}
 }

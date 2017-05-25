@@ -31,65 +31,58 @@ import org.mybatis.generator.api.dom.java.TopLevelClass;
  * 
  */
 public class DeleteByExampleMethodGenerator extends AbstractDAOElementGenerator {
-
-    public DeleteByExampleMethodGenerator() {
-        super();
-    }
-
-    @Override
-    public void addImplementationElements(TopLevelClass topLevelClass) {
-        Set<FullyQualifiedJavaType> importedTypes = new TreeSet<FullyQualifiedJavaType>();
-        Method method = getMethodShell(importedTypes);
-
-        StringBuilder sb = new StringBuilder();
-        sb.append("int rows = "); //$NON-NLS-1$
-        sb.append(daoTemplate.getDeleteMethod(introspectedTable
-                .getIbatis2SqlMapNamespace(), introspectedTable
-                .getDeleteByExampleStatementId(), "example")); //$NON-NLS-1$
-        method.addBodyLine(sb.toString());
-        method.addBodyLine("return rows;"); //$NON-NLS-1$
-
-        if (context.getPlugins().clientDeleteByExampleMethodGenerated(
-                method, topLevelClass, introspectedTable)) {
-            topLevelClass.addImportedTypes(importedTypes);
-            topLevelClass.addMethod(method);
-        }
-    }
-
-    @Override
-    public void addInterfaceElements(Interface interfaze) {
-        if (getExampleMethodVisibility() == JavaVisibility.PUBLIC) {
-            Set<FullyQualifiedJavaType> importedTypes = new TreeSet<FullyQualifiedJavaType>();
-            Method method = getMethodShell(importedTypes);
-
-            if (context.getPlugins().clientDeleteByExampleMethodGenerated(
-                    method, interfaze, introspectedTable)) {
-                interfaze.addImportedTypes(importedTypes);
-                interfaze.addMethod(method);
-            }
-        }
-    }
-
-    private Method getMethodShell(Set<FullyQualifiedJavaType> importedTypes) {
-        FullyQualifiedJavaType type = new FullyQualifiedJavaType(
-                introspectedTable.getExampleType());
-        importedTypes.add(type);
-
-        Method method = new Method();
-        method.setVisibility(getExampleMethodVisibility());
-        method.setReturnType(FullyQualifiedJavaType.getIntInstance());
-        method.setName(getDAOMethodNameCalculator()
-                .getDeleteByExampleMethodName(introspectedTable));
-        method.addParameter(new Parameter(type, "example")); //$NON-NLS-1$
-
-        for (FullyQualifiedJavaType fqjt : daoTemplate.getCheckedExceptions()) {
-            method.addException(fqjt);
-            importedTypes.add(fqjt);
-        }
-
-        context.getCommentGenerator().addGeneralMethodComment(method,
-                introspectedTable);
-
-        return method;
-    }
+	
+	public DeleteByExampleMethodGenerator() {
+		super();
+	}
+	
+	@Override
+	public void addImplementationElements(TopLevelClass topLevelClass) {
+		Set<FullyQualifiedJavaType> importedTypes = new TreeSet<FullyQualifiedJavaType>();
+		Method method = getMethodShell(importedTypes);
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("int rows = "); //$NON-NLS-1$
+		sb.append(daoTemplate.getDeleteMethod(introspectedTable.getIbatis2SqlMapNamespace(), introspectedTable.getDeleteByExampleStatementId(), "example")); //$NON-NLS-1$
+		method.addBodyLine(sb.toString());
+		method.addBodyLine("return rows;"); //$NON-NLS-1$
+		
+		if (context.getPlugins().clientDeleteByExampleMethodGenerated(method, topLevelClass, introspectedTable)) {
+			topLevelClass.addImportedTypes(importedTypes);
+			topLevelClass.addMethod(method);
+		}
+	}
+	
+	@Override
+	public void addInterfaceElements(Interface interfaze) {
+		if (getExampleMethodVisibility() == JavaVisibility.PUBLIC) {
+			Set<FullyQualifiedJavaType> importedTypes = new TreeSet<FullyQualifiedJavaType>();
+			Method method = getMethodShell(importedTypes);
+			
+			if (context.getPlugins().clientDeleteByExampleMethodGenerated(method, interfaze, introspectedTable)) {
+				interfaze.addImportedTypes(importedTypes);
+				interfaze.addMethod(method);
+			}
+		}
+	}
+	
+	private Method getMethodShell(Set<FullyQualifiedJavaType> importedTypes) {
+		FullyQualifiedJavaType type = new FullyQualifiedJavaType(introspectedTable.getExampleType());
+		importedTypes.add(type);
+		
+		Method method = new Method();
+		method.setVisibility(getExampleMethodVisibility());
+		method.setReturnType(FullyQualifiedJavaType.getIntInstance());
+		method.setName(getDAOMethodNameCalculator().getDeleteByExampleMethodName(introspectedTable));
+		method.addParameter(new Parameter(type, "example")); //$NON-NLS-1$
+		
+		for (FullyQualifiedJavaType fqjt : daoTemplate.getCheckedExceptions()) {
+			method.addException(fqjt);
+			importedTypes.add(fqjt);
+		}
+		
+		context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
+		
+		return method;
+	}
 }

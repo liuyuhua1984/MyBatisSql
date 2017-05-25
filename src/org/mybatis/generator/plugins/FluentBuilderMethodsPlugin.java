@@ -25,8 +25,7 @@ import org.mybatis.generator.api.dom.java.TopLevelClass;
 import java.util.List;
 
 /**
- * This plugin adds fluent builder methods to the generated model
- * classes.
+ * This plugin adds fluent builder methods to the generated model classes.
  *
  * Example:
  * <p>
@@ -37,40 +36,29 @@ import java.util.List;
  *
  * @author Stefan Lack
  */
-public class FluentBuilderMethodsPlugin extends  PluginAdapter {
-
-    public boolean validate(List<String> warnings) {
-        return true;
-    }
-
-    
-
-    @Override
-    public boolean modelSetterMethodGenerated(Method method,
-            TopLevelClass topLevelClass, IntrospectedColumn introspectedColumn,
-            IntrospectedTable introspectedTable,
-            ModelClassType modelClassType) {
-        
-        Method fluentMethod = new Method();
-        fluentMethod.setVisibility(JavaVisibility.PUBLIC);
-        fluentMethod.setReturnType(topLevelClass.getType());
-        fluentMethod.setName("with" + method.getName().substring(3)); //$NON-NLS-1$
-        fluentMethod.getParameters().addAll(method.getParameters());
-         
-
-        context.getCommentGenerator().addGeneralMethodComment(fluentMethod,
-                introspectedTable);
-        StringBuilder sb = new StringBuilder()
-          .append("this.") //$NON-NLS-1$
-          .append(method.getName())
-          .append('(')
-          .append(introspectedColumn.getJavaProperty())
-          .append(");"); //$NON-NLS-1$
-        fluentMethod.addBodyLine(sb.toString()); //$NON-NLS-1$
-        fluentMethod.addBodyLine("return this;"); //$NON-NLS-1$
-
-        topLevelClass.addMethod(fluentMethod);
-
-        return super.modelSetterMethodGenerated(method, topLevelClass, introspectedColumn, introspectedTable, modelClassType);
-    }
+public class FluentBuilderMethodsPlugin extends PluginAdapter {
+	
+	public boolean validate(List<String> warnings) {
+		return true;
+	}
+	
+	@Override
+	public boolean modelSetterMethodGenerated(Method method, TopLevelClass topLevelClass, IntrospectedColumn introspectedColumn, IntrospectedTable introspectedTable, ModelClassType modelClassType) {
+		
+		Method fluentMethod = new Method();
+		fluentMethod.setVisibility(JavaVisibility.PUBLIC);
+		fluentMethod.setReturnType(topLevelClass.getType());
+		fluentMethod.setName("with" + method.getName().substring(3)); //$NON-NLS-1$
+		fluentMethod.getParameters().addAll(method.getParameters());
+		
+		context.getCommentGenerator().addGeneralMethodComment(fluentMethod, introspectedTable);
+		StringBuilder sb = new StringBuilder().append("this.") //$NON-NLS-1$
+		        .append(method.getName()).append('(').append(introspectedColumn.getJavaProperty()).append(");"); //$NON-NLS-1$
+		fluentMethod.addBodyLine(sb.toString()); // $NON-NLS-1$
+		fluentMethod.addBodyLine("return this;"); //$NON-NLS-1$
+		
+		topLevelClass.addMethod(fluentMethod);
+		
+		return super.modelSetterMethodGenerated(method, topLevelClass, introspectedColumn, introspectedTable, modelClassType);
+	}
 }

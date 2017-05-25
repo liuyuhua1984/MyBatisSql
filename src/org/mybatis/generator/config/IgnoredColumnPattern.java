@@ -26,50 +26,50 @@ import org.mybatis.generator.api.dom.xml.Attribute;
 import org.mybatis.generator.api.dom.xml.XmlElement;
 
 public class IgnoredColumnPattern {
-
-    private String patternRegex;
-    private Pattern pattern;
-    private List<IgnoredColumnException> exceptions = new ArrayList<IgnoredColumnException>();
-    
-    public IgnoredColumnPattern(String patternRegex) {
-        this.patternRegex = patternRegex;
-        pattern = Pattern.compile(patternRegex);
-    }
-    
-    public void addException(IgnoredColumnException exception) {
-        exceptions.add(exception);
-    }
-    
-    public boolean matches(String columnName) {
-        boolean matches = pattern.matcher(columnName).matches();
-        
-        if (matches) {
-            for (IgnoredColumnException exception : exceptions) {
-                if (exception.matches(columnName)) {
-                    matches = false;
-                    break;
-                }
-            }
-        }
-        
-        return matches;
-    }
-
-    public XmlElement toXmlElement() {
-        XmlElement xmlElement = new XmlElement("ignoreColumnsByRegex"); //$NON-NLS-1$
-        xmlElement.addAttribute(new Attribute("pattern", patternRegex)); //$NON-NLS-1$
-        
-        for (IgnoredColumnException exception : exceptions) {
-            xmlElement.addElement(exception.toXmlElement());
-        }
-
-        return xmlElement;
-    }
-
-    public void validate(List<String> errors, String tableName) {
-        if (!stringHasValue(patternRegex)) {
-            errors.add(getString("ValidationError.27", //$NON-NLS-1$
-                    tableName));
-        }
-    }
+	
+	private String patternRegex;
+	private Pattern pattern;
+	private List<IgnoredColumnException> exceptions = new ArrayList<IgnoredColumnException>();
+	
+	public IgnoredColumnPattern(String patternRegex) {
+		this.patternRegex = patternRegex;
+		pattern = Pattern.compile(patternRegex);
+	}
+	
+	public void addException(IgnoredColumnException exception) {
+		exceptions.add(exception);
+	}
+	
+	public boolean matches(String columnName) {
+		boolean matches = pattern.matcher(columnName).matches();
+		
+		if (matches) {
+			for (IgnoredColumnException exception : exceptions) {
+				if (exception.matches(columnName)) {
+					matches = false;
+					break;
+				}
+			}
+		}
+		
+		return matches;
+	}
+	
+	public XmlElement toXmlElement() {
+		XmlElement xmlElement = new XmlElement("ignoreColumnsByRegex"); //$NON-NLS-1$
+		xmlElement.addAttribute(new Attribute("pattern", patternRegex)); //$NON-NLS-1$
+		
+		for (IgnoredColumnException exception : exceptions) {
+			xmlElement.addElement(exception.toXmlElement());
+		}
+		
+		return xmlElement;
+	}
+	
+	public void validate(List<String> errors, String tableName) {
+		if (!stringHasValue(patternRegex)) {
+			errors.add(getString("ValidationError.27", //$NON-NLS-1$
+			        tableName));
+		}
+	}
 }

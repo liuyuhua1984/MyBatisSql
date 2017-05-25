@@ -34,72 +34,67 @@ import org.mybatis.generator.internal.ObjectFactory;
  * @author Jeff Butler
  */
 public abstract class AbstractDAOElementGenerator extends AbstractGenerator {
-    public abstract void addInterfaceElements(Interface interfaze);
-
-    public abstract void addImplementationElements(TopLevelClass topLevelClass);
-
-    protected AbstractDAOTemplate daoTemplate;
-    private DAOMethodNameCalculator dAOMethodNameCalculator;
-    private JavaVisibility exampleMethodVisibility;
-
-    public AbstractDAOElementGenerator() {
-        super();
-    }
-
-    public void setDAOTemplate(AbstractDAOTemplate abstractDAOTemplate) {
-        this.daoTemplate = abstractDAOTemplate;
-    }
-
-    public DAOMethodNameCalculator getDAOMethodNameCalculator() {
-        if (dAOMethodNameCalculator == null) {
-            String type = context.getJavaClientGeneratorConfiguration()
-                    .getProperty(PropertyRegistry.DAO_METHOD_NAME_CALCULATOR);
-            if (stringHasValue(type)) {
-                if ("extended".equalsIgnoreCase(type)) { //$NON-NLS-1$
-                    type = ExtendedDAOMethodNameCalculator.class.getName();
-                } else if ("default".equalsIgnoreCase(type)) { //$NON-NLS-1$
-                    type = DefaultDAOMethodNameCalculator.class.getName();
-                }
-            } else {
-                type = DefaultDAOMethodNameCalculator.class.getName();
-            }
-
-            try {
-                dAOMethodNameCalculator = (DAOMethodNameCalculator) ObjectFactory
-                        .createInternalObject(type);
-            } catch (Exception e) {
-                dAOMethodNameCalculator = new DefaultDAOMethodNameCalculator();
-                warnings.add(getString(
-                        "Warning.17", type, e.getMessage())); //$NON-NLS-1$
-            }
-        }
-
-        return dAOMethodNameCalculator;
-    }
-
-    public JavaVisibility getExampleMethodVisibility() {
-        if (exampleMethodVisibility == null) {
-            String type = context
-                    .getJavaClientGeneratorConfiguration()
-                    .getProperty(PropertyRegistry.DAO_EXAMPLE_METHOD_VISIBILITY);
-            if (stringHasValue(type)) {
-                if ("public".equalsIgnoreCase(type)) { //$NON-NLS-1$
-                    exampleMethodVisibility = JavaVisibility.PUBLIC;
-                } else if ("private".equalsIgnoreCase(type)) { //$NON-NLS-1$
-                    exampleMethodVisibility = JavaVisibility.PRIVATE;
-                } else if ("protected".equalsIgnoreCase(type)) { //$NON-NLS-1$
-                    exampleMethodVisibility = JavaVisibility.PROTECTED;
-                } else if ("default".equalsIgnoreCase(type)) { //$NON-NLS-1$
-                    exampleMethodVisibility = JavaVisibility.DEFAULT;
-                } else {
-                    exampleMethodVisibility = JavaVisibility.PUBLIC;
-                    warnings.add(getString("Warning.16", type)); //$NON-NLS-1$
-                }
-            } else {
-                exampleMethodVisibility = JavaVisibility.PUBLIC;
-            }
-        }
-
-        return exampleMethodVisibility;
-    }
+	public abstract void addInterfaceElements(Interface interfaze);
+	
+	public abstract void addImplementationElements(TopLevelClass topLevelClass);
+	
+	protected AbstractDAOTemplate daoTemplate;
+	private DAOMethodNameCalculator dAOMethodNameCalculator;
+	private JavaVisibility exampleMethodVisibility;
+	
+	public AbstractDAOElementGenerator() {
+		super();
+	}
+	
+	public void setDAOTemplate(AbstractDAOTemplate abstractDAOTemplate) {
+		this.daoTemplate = abstractDAOTemplate;
+	}
+	
+	public DAOMethodNameCalculator getDAOMethodNameCalculator() {
+		if (dAOMethodNameCalculator == null) {
+			String type = context.getJavaClientGeneratorConfiguration().getProperty(PropertyRegistry.DAO_METHOD_NAME_CALCULATOR);
+			if (stringHasValue(type)) {
+				if ("extended".equalsIgnoreCase(type)) { //$NON-NLS-1$
+					type = ExtendedDAOMethodNameCalculator.class.getName();
+				} else if ("default".equalsIgnoreCase(type)) { //$NON-NLS-1$
+					type = DefaultDAOMethodNameCalculator.class.getName();
+				}
+			} else {
+				type = DefaultDAOMethodNameCalculator.class.getName();
+			}
+			
+			try {
+				dAOMethodNameCalculator = (DAOMethodNameCalculator) ObjectFactory.createInternalObject(type);
+			} catch (Exception e) {
+				dAOMethodNameCalculator = new DefaultDAOMethodNameCalculator();
+				warnings.add(getString("Warning.17", type, e.getMessage())); //$NON-NLS-1$
+			}
+		}
+		
+		return dAOMethodNameCalculator;
+	}
+	
+	public JavaVisibility getExampleMethodVisibility() {
+		if (exampleMethodVisibility == null) {
+			String type = context.getJavaClientGeneratorConfiguration().getProperty(PropertyRegistry.DAO_EXAMPLE_METHOD_VISIBILITY);
+			if (stringHasValue(type)) {
+				if ("public".equalsIgnoreCase(type)) { //$NON-NLS-1$
+					exampleMethodVisibility = JavaVisibility.PUBLIC;
+				} else if ("private".equalsIgnoreCase(type)) { //$NON-NLS-1$
+					exampleMethodVisibility = JavaVisibility.PRIVATE;
+				} else if ("protected".equalsIgnoreCase(type)) { //$NON-NLS-1$
+					exampleMethodVisibility = JavaVisibility.PROTECTED;
+				} else if ("default".equalsIgnoreCase(type)) { //$NON-NLS-1$
+					exampleMethodVisibility = JavaVisibility.DEFAULT;
+				} else {
+					exampleMethodVisibility = JavaVisibility.PUBLIC;
+					warnings.add(getString("Warning.16", type)); //$NON-NLS-1$
+				}
+			} else {
+				exampleMethodVisibility = JavaVisibility.PUBLIC;
+			}
+		}
+		
+		return exampleMethodVisibility;
+	}
 }

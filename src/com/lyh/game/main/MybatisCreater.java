@@ -36,7 +36,7 @@ public class MybatisCreater {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		List<String> warnings = new ArrayList<String>();
-		boolean overwrite = true;//是否覆盖
+		boolean overwrite = true;// 是否覆盖
 		try {
 			String dir = System.getProperty("user.dir");
 			File configFile = new File(dir + "/generatorConfig.xml");

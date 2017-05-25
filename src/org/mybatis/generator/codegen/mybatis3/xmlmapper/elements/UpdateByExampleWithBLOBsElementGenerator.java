@@ -15,6 +15,7 @@
  */
 package org.mybatis.generator.codegen.mybatis3.xmlmapper.elements;
 
+import java.sql.Types;
 import java.util.Iterator;
 
 import org.mybatis.generator.api.IntrospectedColumn;
@@ -30,63 +31,65 @@ import org.mybatis.generator.codegen.mybatis3.MyBatis3FormattingUtilities;
  * @author Jeff Butler
  * 
  */
-public class UpdateByExampleWithBLOBsElementGenerator extends
-        AbstractXmlElementGenerator {
-
-    public UpdateByExampleWithBLOBsElementGenerator() {
-        super();
-    }
-
-    @Override
-    public void addElements(XmlElement parentElement) {
-        XmlElement answer = new XmlElement("update"); //$NON-NLS-1$
-
-        answer.addAttribute(new Attribute("id", //$NON-NLS-1$
-                introspectedTable.getUpdateByExampleWithBLOBsStatementId()));
-
-        answer.addAttribute(new Attribute("parameterType", "map")); //$NON-NLS-1$ //$NON-NLS-2$
-        context.getCommentGenerator().addComment(answer);
-
-        StringBuilder sb = new StringBuilder();
-        sb.append("update "); //$NON-NLS-1$
-        sb.append(introspectedTable
-                .getAliasedFullyQualifiedTableNameAtRuntime());
-        answer.addElement(new TextElement(sb.toString()));
-
-        // set up for first column
-        sb.setLength(0);
-        sb.append("set "); //$NON-NLS-1$
-
-        Iterator<IntrospectedColumn> iter = ListUtilities.removeGeneratedAlwaysColumns(introspectedTable.getAllColumns())
-                .iterator();
-        while (iter.hasNext()) {
-            IntrospectedColumn introspectedColumn = iter.next();
-            
-            sb.append(MyBatis3FormattingUtilities
-                    .getAliasedEscapedColumnName(introspectedColumn));
-            sb.append(" = "); //$NON-NLS-1$
-            sb.append(MyBatis3FormattingUtilities.getParameterClause(
-                    introspectedColumn, "record.")); //$NON-NLS-1$
-
-            if (iter.hasNext()) {
-                sb.append(',');
-            }
-
-            answer.addElement(new TextElement(sb.toString()));
-
-            // set up for the next column
-            if (iter.hasNext()) {
-                sb.setLength(0);
-                OutputUtilities.xmlIndent(sb, 1);
-            }
-        }
-
-        answer.addElement(getUpdateByExampleIncludeElement());
-
-        if (context.getPlugins()
-                .sqlMapUpdateByExampleWithBLOBsElementGenerated(answer,
-                        introspectedTable)) {
-            parentElement.addElement(answer);
-        }
-    }
+public class UpdateByExampleWithBLOBsElementGenerator extends AbstractXmlElementGenerator {
+	
+	public UpdateByExampleWithBLOBsElementGenerator() {
+		super();
+	}
+	
+	@Override
+	public void addElements(XmlElement parentElement) {
+		XmlElement answer = new XmlElement("update"); //$NON-NLS-1$
+		
+		answer.addAttribute(new Attribute("id", //$NON-NLS-1$
+		        introspectedTable.getUpdateByExampleWithBLOBsStatementId()));
+		
+		answer.addAttribute(new Attribute("parameterType", "map")); //$NON-NLS-1$ //$NON-NLS-2$
+		context.getCommentGenerator().addComment(answer);
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("update "); //$NON-NLS-1$
+		sb.append(introspectedTable.getAliasedFullyQualifiedTableNameAtRuntime());
+		answer.addElement(new TextElement(sb.toString()));
+		
+		// set up for first column
+		sb.setLength(0);
+		sb.append("set "); //$NON-NLS-1$
+		
+		Iterator<IntrospectedColumn> iter = ListUtilities.removeGeneratedAlwaysColumns(introspectedTable.getAllColumns()).iterator();
+		while (iter.hasNext()) {
+			IntrospectedColumn introspectedColumn = iter.next();
+			
+//			sb.append(MyBatis3FormattingUtilities.getAliasedEscapedColumnName(introspectedColumn));
+//			sb.append(" = "); //$NON-NLS-1$
+//			sb.append(MyBatis3FormattingUtilities.getParameterClause(introspectedColumn, "record.")); //$NON-NLS-1$
+			
+			String name = MyBatis3FormattingUtilities.getAliasedEscapedColumnName(introspectedColumn);
+			sb.append(name);
+			sb.append(" = "); //$NON-NLS-1$
+			String val = MyBatis3FormattingUtilities.getParameterClause(introspectedColumn,"record.");
+			if (name.equals(DATA_VERSION) && (introspectedColumn.getJdbcType() == Types.BIGINT
+				|| introspectedColumn.getJdbcType() == Types.INTEGER)) {
+				val += "+1";
+			}
+			sb.append(val);
+			if (iter.hasNext()) {
+				sb.append(',');
+			}
+			
+			answer.addElement(new TextElement(sb.toString()));
+			
+			// set up for the next column
+			if (iter.hasNext()) {
+				sb.setLength(0);
+				OutputUtilities.xmlIndent(sb, 1);
+			}
+		}
+		
+		answer.addElement(getUpdateByExampleIncludeElement());
+		
+		if (context.getPlugins().sqlMapUpdateByExampleWithBLOBsElementGenerated(answer, introspectedTable)) {
+			parentElement.addElement(answer);
+		}
+	}
 }

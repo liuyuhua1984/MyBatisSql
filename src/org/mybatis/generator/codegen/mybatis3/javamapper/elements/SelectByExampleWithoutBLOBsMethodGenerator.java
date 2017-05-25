@@ -31,61 +31,53 @@ import org.mybatis.generator.api.dom.java.Parameter;
  * @author Jeff Butler
  * 
  */
-public class SelectByExampleWithoutBLOBsMethodGenerator extends
-        AbstractJavaMapperMethodGenerator {
-
-    public SelectByExampleWithoutBLOBsMethodGenerator() {
-        super();
-    }
-
-    @Override
-    public void addInterfaceElements(Interface interfaze) {
-        Set<FullyQualifiedJavaType> importedTypes = new TreeSet<FullyQualifiedJavaType>();
-        FullyQualifiedJavaType type = new FullyQualifiedJavaType(
-                introspectedTable.getExampleType());
-        importedTypes.add(type);
-        importedTypes.add(FullyQualifiedJavaType.getNewListInstance());
-
-        Method method = new Method();
-        method.setVisibility(JavaVisibility.PUBLIC);
-
-        FullyQualifiedJavaType returnType = FullyQualifiedJavaType
-                .getNewListInstance();
-        FullyQualifiedJavaType listType;
-        if (introspectedTable.getRules().generateBaseRecordClass()) {
-            listType = new FullyQualifiedJavaType(introspectedTable
-                    .getBaseRecordType());
-        } else if (introspectedTable.getRules().generatePrimaryKeyClass()) {
-            listType = new FullyQualifiedJavaType(introspectedTable
-                    .getPrimaryKeyType());
-        } else {
-            throw new RuntimeException(getString("RuntimeError.12")); //$NON-NLS-1$
-        }
-
-        importedTypes.add(listType);
-        returnType.addTypeArgument(listType);
-        method.setReturnType(returnType);
-
-        method.setName(introspectedTable.getSelectByExampleStatementId());
-        method.addParameter(new Parameter(type, "example")); //$NON-NLS-1$
-
-        context.getCommentGenerator().addGeneralMethodComment(method,
-                introspectedTable);
-
-        addMapperAnnotations(interfaze, method);
-        
-        if (context.getPlugins()
-                .clientSelectByExampleWithoutBLOBsMethodGenerated(method,
-                        interfaze, introspectedTable)) {
-            addExtraImports(interfaze);
-            interfaze.addImportedTypes(importedTypes);
-            interfaze.addMethod(method);
-        }
-    }
-
-    public void addMapperAnnotations(Interface interfaze, Method method) {
-    }
-
-    public void addExtraImports(Interface interfaze) {
-    }
+public class SelectByExampleWithoutBLOBsMethodGenerator extends AbstractJavaMapperMethodGenerator {
+	
+	public SelectByExampleWithoutBLOBsMethodGenerator() {
+		super();
+	}
+	
+	@Override
+	public void addInterfaceElements(Interface interfaze) {
+		Set<FullyQualifiedJavaType> importedTypes = new TreeSet<FullyQualifiedJavaType>();
+		FullyQualifiedJavaType type = new FullyQualifiedJavaType(introspectedTable.getExampleType());
+		importedTypes.add(type);
+		importedTypes.add(FullyQualifiedJavaType.getNewListInstance());
+		
+		Method method = new Method();
+		method.setVisibility(JavaVisibility.PUBLIC);
+		
+		FullyQualifiedJavaType returnType = FullyQualifiedJavaType.getNewListInstance();
+		FullyQualifiedJavaType listType;
+		if (introspectedTable.getRules().generateBaseRecordClass()) {
+			listType = new FullyQualifiedJavaType(introspectedTable.getBaseRecordType());
+		} else if (introspectedTable.getRules().generatePrimaryKeyClass()) {
+			listType = new FullyQualifiedJavaType(introspectedTable.getPrimaryKeyType());
+		} else {
+			throw new RuntimeException(getString("RuntimeError.12")); //$NON-NLS-1$
+		}
+		
+		importedTypes.add(listType);
+		returnType.addTypeArgument(listType);
+		method.setReturnType(returnType);
+		
+		method.setName(introspectedTable.getSelectByExampleStatementId());
+		method.addParameter(new Parameter(type, "example")); //$NON-NLS-1$
+		
+		context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
+		
+		addMapperAnnotations(interfaze, method);
+		
+		if (context.getPlugins().clientSelectByExampleWithoutBLOBsMethodGenerated(method, interfaze, introspectedTable)) {
+			addExtraImports(interfaze);
+			interfaze.addImportedTypes(importedTypes);
+			interfaze.addMethod(method);
+		}
+	}
+	
+	public void addMapperAnnotations(Interface interfaze, Method method) {
+	}
+	
+	public void addExtraImports(Interface interfaze) {
+	}
 }

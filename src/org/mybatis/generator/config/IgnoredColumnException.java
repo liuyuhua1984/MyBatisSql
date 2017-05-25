@@ -24,28 +24,27 @@ import org.mybatis.generator.api.dom.xml.Attribute;
 import org.mybatis.generator.api.dom.xml.XmlElement;
 
 public class IgnoredColumnException extends IgnoredColumn {
-
-    public IgnoredColumnException(String columnName) {
-        super(columnName);
-    }
-
-    @Override
-    public XmlElement toXmlElement() {
-        XmlElement xmlElement = new XmlElement("except"); //$NON-NLS-1$
-        xmlElement.addAttribute(new Attribute("column", columnName)); //$NON-NLS-1$
-
-        if (stringHasValue(configuredDelimitedColumnName)) {
-            xmlElement.addAttribute(new Attribute(
-                    "delimitedColumnName", configuredDelimitedColumnName)); //$NON-NLS-1$
-        }
-
-        return xmlElement;
-    }
-
-    public void validate(List<String> errors, String tableName) {
-        if (!stringHasValue(columnName)) {
-            errors.add(getString("ValidationError.26", //$NON-NLS-1$
-                    tableName));
-        }
-    }
+	
+	public IgnoredColumnException(String columnName) {
+		super(columnName);
+	}
+	
+	@Override
+	public XmlElement toXmlElement() {
+		XmlElement xmlElement = new XmlElement("except"); //$NON-NLS-1$
+		xmlElement.addAttribute(new Attribute("column", columnName)); //$NON-NLS-1$
+		
+		if (stringHasValue(configuredDelimitedColumnName)) {
+			xmlElement.addAttribute(new Attribute("delimitedColumnName", configuredDelimitedColumnName)); //$NON-NLS-1$
+		}
+		
+		return xmlElement;
+	}
+	
+	public void validate(List<String> errors, String tableName) {
+		if (!stringHasValue(columnName)) {
+			errors.add(getString("ValidationError.26", //$NON-NLS-1$
+			        tableName));
+		}
+	}
 }

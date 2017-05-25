@@ -20,14 +20,14 @@ package org.mybatis.generator.logging;
  * @author Clinton Begin
  */
 public interface Log {
-
-    boolean isDebugEnabled();
-
-    void error(String s, Throwable e);
-
-    void error(String s);
-
-    void debug(String s);
-
-    void warn(String s);
+	
+	boolean isDebugEnabled();
+	
+	void error(String s, Throwable e);
+	
+	void error(String s);
+	
+	void debug(String s);
+	
+	void warn(String s);
 }

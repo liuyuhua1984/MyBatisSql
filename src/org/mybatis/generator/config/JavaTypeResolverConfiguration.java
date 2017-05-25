@@ -22,22 +22,22 @@ import org.mybatis.generator.api.dom.xml.XmlElement;
  * @author Jeff Butler
  */
 public class JavaTypeResolverConfiguration extends TypedPropertyHolder {
-
-    /**
+	
+	/**
 	 *  
 	 */
-    public JavaTypeResolverConfiguration() {
-        super();
-    }
-
-    public XmlElement toXmlElement() {
-        XmlElement answer = new XmlElement("javaTypeResolver"); //$NON-NLS-1$
-        if (getConfigurationType() != null) {
-            answer.addAttribute(new Attribute("type", getConfigurationType())); //$NON-NLS-1$
-        }
-
-        addPropertyXmlElements(answer);
-
-        return answer;
-    }
+	public JavaTypeResolverConfiguration() {
+		super();
+	}
+	
+	public XmlElement toXmlElement() {
+		XmlElement answer = new XmlElement("javaTypeResolver"); //$NON-NLS-1$
+		if (getConfigurationType() != null) {
+			answer.addAttribute(new Attribute("type", getConfigurationType())); //$NON-NLS-1$
+		}
+		
+		addPropertyXmlElements(answer);
+		
+		return answer;
+	}
 }

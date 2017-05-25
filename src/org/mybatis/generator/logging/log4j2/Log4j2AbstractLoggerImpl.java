@@ -28,43 +28,43 @@ import org.mybatis.generator.logging.LogFactory;
  * @author Eduardo Macarron
  */
 public class Log4j2AbstractLoggerImpl implements Log {
-
-    private static Marker MARKER = MarkerManager.getMarker(LogFactory.MARKER);
-
-    private static final String FQCN = Log4j2Impl.class.getName();
-
-    private ExtendedLoggerWrapper log;
-
-    public Log4j2AbstractLoggerImpl(AbstractLogger abstractLogger) {
-        log = new ExtendedLoggerWrapper(abstractLogger, abstractLogger.getName(), abstractLogger.getMessageFactory());
-    }
-
-    @Override
-    public boolean isDebugEnabled() {
-        return log.isDebugEnabled();
-    }
-
-    @Override
-    public void error(String s, Throwable e) {
-	    log.logMessage(FQCN, Level.ERROR, MARKER, new SimpleMessage(s), e);
-//	    log.logIfEnabled(FQCN, Level.ERROR, MARKER, new SimpleMessage(s), e);
-    }
-
-    @Override
-    public void error(String s) {
-	    log.logMessage(FQCN, Level.ERROR, MARKER, new SimpleMessage(s),null);
-    }
-
-    @Override
-    public void debug(String s) {
-	    log.logMessage(FQCN, Level.DEBUG, MARKER, new SimpleMessage(s), null);
-       // log.logIfEnabled(FQCN, Level.DEBUG, MARKER, new SimpleMessage(s), null);
-    }
-
-    @Override
-    public void warn(String s) {
-	    log.logMessage(FQCN, Level.WARN, MARKER, new SimpleMessage(s), null);
-      //  log.logIfEnabled(FQCN, Level.WARN, MARKER, new SimpleMessage(s), null);
-    }
-
+	
+	private static Marker MARKER = MarkerManager.getMarker(LogFactory.MARKER);
+	
+	private static final String FQCN = Log4j2Impl.class.getName();
+	
+	private ExtendedLoggerWrapper log;
+	
+	public Log4j2AbstractLoggerImpl(AbstractLogger abstractLogger) {
+		log = new ExtendedLoggerWrapper(abstractLogger, abstractLogger.getName(), abstractLogger.getMessageFactory());
+	}
+	
+	@Override
+	public boolean isDebugEnabled() {
+		return log.isDebugEnabled();
+	}
+	
+	@Override
+	public void error(String s, Throwable e) {
+		log.logMessage(FQCN, Level.ERROR, MARKER, new SimpleMessage(s), e);
+		// log.logIfEnabled(FQCN, Level.ERROR, MARKER, new SimpleMessage(s), e);
+	}
+	
+	@Override
+	public void error(String s) {
+		log.logMessage(FQCN, Level.ERROR, MARKER, new SimpleMessage(s), null);
+	}
+	
+	@Override
+	public void debug(String s) {
+		log.logMessage(FQCN, Level.DEBUG, MARKER, new SimpleMessage(s), null);
+		// log.logIfEnabled(FQCN, Level.DEBUG, MARKER, new SimpleMessage(s), null);
+	}
+	
+	@Override
+	public void warn(String s) {
+		log.logMessage(FQCN, Level.WARN, MARKER, new SimpleMessage(s), null);
+		// log.logIfEnabled(FQCN, Level.WARN, MARKER, new SimpleMessage(s), null);
+	}
+	
 }

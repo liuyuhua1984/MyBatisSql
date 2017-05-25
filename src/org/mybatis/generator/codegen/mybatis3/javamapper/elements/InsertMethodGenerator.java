@@ -30,51 +30,47 @@ import org.mybatis.generator.api.dom.java.Parameter;
  * 
  */
 public class InsertMethodGenerator extends AbstractJavaMapperMethodGenerator {
-
-    private boolean isSimple;
-
-    public InsertMethodGenerator(boolean isSimple) {
-        super();
-        this.isSimple = isSimple;
-    }
-
-    @Override
-    public void addInterfaceElements(Interface interfaze) {
-        Set<FullyQualifiedJavaType> importedTypes = new TreeSet<FullyQualifiedJavaType>();
-        Method method = new Method();
-
-        method.setReturnType(FullyQualifiedJavaType.getIntInstance());
-        method.setVisibility(JavaVisibility.PUBLIC);
-        method.setName(introspectedTable.getInsertStatementId());
-
-        FullyQualifiedJavaType parameterType;
-        if (isSimple) {
-            parameterType = new FullyQualifiedJavaType(
-                    introspectedTable.getBaseRecordType());
-        } else {
-            parameterType = introspectedTable.getRules()
-                    .calculateAllFieldsClass();
-        }
-
-        importedTypes.add(parameterType);
-        method.addParameter(new Parameter(parameterType, "record")); //$NON-NLS-1$
-
-        context.getCommentGenerator().addGeneralMethodComment(method,
-                introspectedTable);
-
-        addMapperAnnotations(method);
-
-        if (context.getPlugins().clientInsertMethodGenerated(method, interfaze,
-                introspectedTable)) {
-            addExtraImports(interfaze);
-            interfaze.addImportedTypes(importedTypes);
-            interfaze.addMethod(method);
-        }
-    }
-
-    public void addMapperAnnotations(Method method) {
-    }
-
-    public void addExtraImports(Interface interfaze) {
-    }
+	
+	private boolean isSimple;
+	
+	public InsertMethodGenerator(boolean isSimple) {
+		super();
+		this.isSimple = isSimple;
+	}
+	
+	@Override
+	public void addInterfaceElements(Interface interfaze) {
+		Set<FullyQualifiedJavaType> importedTypes = new TreeSet<FullyQualifiedJavaType>();
+		Method method = new Method();
+		
+		method.setReturnType(FullyQualifiedJavaType.getIntInstance());
+		method.setVisibility(JavaVisibility.PUBLIC);
+		method.setName(introspectedTable.getInsertStatementId());
+		
+		FullyQualifiedJavaType parameterType;
+		if (isSimple) {
+			parameterType = new FullyQualifiedJavaType(introspectedTable.getBaseRecordType());
+		} else {
+			parameterType = introspectedTable.getRules().calculateAllFieldsClass();
+		}
+		
+		importedTypes.add(parameterType);
+		method.addParameter(new Parameter(parameterType, "record")); //$NON-NLS-1$
+		
+		context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
+		
+		addMapperAnnotations(method);
+		
+		if (context.getPlugins().clientInsertMethodGenerated(method, interfaze, introspectedTable)) {
+			addExtraImports(interfaze);
+			interfaze.addImportedTypes(importedTypes);
+			interfaze.addMethod(method);
+		}
+	}
+	
+	public void addMapperAnnotations(Method method) {
+	}
+	
+	public void addExtraImports(Interface interfaze) {
+	}
 }

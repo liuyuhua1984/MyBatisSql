@@ -30,54 +30,44 @@ import org.mybatis.generator.config.GeneratedKey;
  * 
  */
 public abstract class AbstractXmlElementGenerator extends AbstractGenerator {
-    public abstract void addElements(XmlElement parentElement);
-
-    public AbstractXmlElementGenerator() {
-        super();
-    }
-
-    /**
-     * This method should return an XmlElement for the select key used to
-     * automatically generate keys.
-     * 
-     * @param introspectedColumn
-     *            the column related to the select key statement
-     * @param generatedKey
-     *            the generated key for the current table
-     * @return the selectKey element
-     */
-    protected XmlElement getSelectKey(IntrospectedColumn introspectedColumn,
-            GeneratedKey generatedKey) {
-        String identityColumnType = introspectedColumn
-                .getFullyQualifiedJavaType().getFullyQualifiedName();
-
-        XmlElement answer = new XmlElement("selectKey"); //$NON-NLS-1$
-        answer.addAttribute(new Attribute("resultClass", identityColumnType)); //$NON-NLS-1$
-        answer.addAttribute(new Attribute(
-                "keyProperty", introspectedColumn.getJavaProperty())); //$NON-NLS-1$
-        if (stringHasValue(generatedKey.getType())) {
-            answer.addAttribute(new Attribute("type", generatedKey.getType())); //$NON-NLS-1$  
-        }
-        answer
-                .addElement(new TextElement(generatedKey
-                        .getRuntimeSqlStatement()));
-
-        return answer;
-    }
-
-    protected XmlElement getBaseColumnListElement() {
-        XmlElement answer = new XmlElement("include"); //$NON-NLS-1$
-        answer.addAttribute(new Attribute("refid", //$NON-NLS-1$
-                introspectedTable.getIbatis2SqlMapNamespace()
-                        + "." + introspectedTable.getBaseColumnListId())); //$NON-NLS-1$
-        return answer;
-    }
-
-    protected XmlElement getBlobColumnListElement() {
-        XmlElement answer = new XmlElement("include"); //$NON-NLS-1$
-        answer.addAttribute(new Attribute("refid", //$NON-NLS-1$
-                introspectedTable.getIbatis2SqlMapNamespace()
-                        + "." + introspectedTable.getBlobColumnListId())); //$NON-NLS-1$
-        return answer;
-    }
+	public abstract void addElements(XmlElement parentElement);
+	
+	public AbstractXmlElementGenerator() {
+		super();
+	}
+	
+	/**
+	 * This method should return an XmlElement for the select key used to automatically generate keys.
+	 * 
+	 * @param introspectedColumn the column related to the select key statement
+	 * @param generatedKey the generated key for the current table
+	 * @return the selectKey element
+	 */
+	protected XmlElement getSelectKey(IntrospectedColumn introspectedColumn, GeneratedKey generatedKey) {
+		String identityColumnType = introspectedColumn.getFullyQualifiedJavaType().getFullyQualifiedName();
+		
+		XmlElement answer = new XmlElement("selectKey"); //$NON-NLS-1$
+		answer.addAttribute(new Attribute("resultClass", identityColumnType)); //$NON-NLS-1$
+		answer.addAttribute(new Attribute("keyProperty", introspectedColumn.getJavaProperty())); //$NON-NLS-1$
+		if (stringHasValue(generatedKey.getType())) {
+			answer.addAttribute(new Attribute("type", generatedKey.getType())); //$NON-NLS-1$
+		}
+		answer.addElement(new TextElement(generatedKey.getRuntimeSqlStatement()));
+		
+		return answer;
+	}
+	
+	protected XmlElement getBaseColumnListElement() {
+		XmlElement answer = new XmlElement("include"); //$NON-NLS-1$
+		answer.addAttribute(new Attribute("refid", //$NON-NLS-1$
+		        introspectedTable.getIbatis2SqlMapNamespace() + "." + introspectedTable.getBaseColumnListId())); //$NON-NLS-1$
+		return answer;
+	}
+	
+	protected XmlElement getBlobColumnListElement() {
+		XmlElement answer = new XmlElement("include"); //$NON-NLS-1$
+		answer.addAttribute(new Attribute("refid", //$NON-NLS-1$
+		        introspectedTable.getIbatis2SqlMapNamespace() + "." + introspectedTable.getBlobColumnListId())); //$NON-NLS-1$
+		return answer;
+	}
 }

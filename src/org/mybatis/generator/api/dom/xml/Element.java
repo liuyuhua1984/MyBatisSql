@@ -19,13 +19,13 @@ package org.mybatis.generator.api.dom.xml;
  * @author Jeff Butler
  */
 public abstract class Element {
-
-    /**
-     * 
-     */
-    public Element() {
-        super();
-    }
-
-    public abstract String getFormattedContent(int indentLevel);
+	
+	/**
+	 * 
+	 */
+	public Element() {
+		super();
+	}
+	
+	public abstract String getFormattedContent(int indentLevel);
 }

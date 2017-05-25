@@ -23,38 +23,37 @@ import org.mybatis.generator.api.dom.OutputUtilities;
  * @author Jeff Butler
  */
 public class TextElement extends Element {
-    
-    /** The content. */
-    private String content;
-
-    /**
-     * Instantiates a new text element.
-     *
-     * @param content
-     *            the content
-     */
-    public TextElement(String content) {
-        super();
-        this.content = content;
-    }
-
-    /* (non-Javadoc)
-     * @see org.mybatis.generator.api.dom.xml.Element#getFormattedContent(int)
-     */
-    @Override
-    public String getFormattedContent(int indentLevel) {
-        StringBuilder sb = new StringBuilder();
-        OutputUtilities.xmlIndent(sb, indentLevel);
-        sb.append(content);
-        return sb.toString();
-    }
-
-    /**
-     * Gets the content.
-     *
-     * @return the content
-     */
-    public String getContent() {
-        return content;
-    }
+	
+	/** The content. */
+	private String content;
+	
+	/**
+	 * Instantiates a new text element.
+	 *
+	 * @param content the content
+	 */
+	public TextElement(String content) {
+		super();
+		this.content = content;
+	}
+	
+	/* (non-Javadoc)
+	 * 
+	 * @see org.mybatis.generator.api.dom.xml.Element#getFormattedContent(int) */
+	@Override
+	public String getFormattedContent(int indentLevel) {
+		StringBuilder sb = new StringBuilder();
+		OutputUtilities.xmlIndent(sb, indentLevel);
+		sb.append(content);
+		return sb.toString();
+	}
+	
+	/**
+	 * Gets the content.
+	 *
+	 * @return the content
+	 */
+	public String getContent() {
+		return content;
+	}
 }

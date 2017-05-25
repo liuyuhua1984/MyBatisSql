@@ -21,35 +21,34 @@ import java.util.List;
 import org.mybatis.generator.api.IntrospectedColumn;
 
 /**
- * Couple of little utility methods to make dealing with generated always
- * columns easier.  If a column is GENERATED ALWAYS, it should not
- * be references on an insert or update method.
+ * Couple of little utility methods to make dealing with generated always columns easier. If a column is GENERATED ALWAYS, it should not be references on an insert or update method.
  * 
  * If a column is identity, it should not be referenced on an insert method.
- *  
+ * 
  * TODO - Replace this with Lambdas when we get to Java 8
+ * 
  * @author Jeff Butler
  *
  */
 public class ListUtilities {
-
-    public static List<IntrospectedColumn> removeGeneratedAlwaysColumns(List<IntrospectedColumn> columns) {
-        List<IntrospectedColumn> filteredList = new ArrayList<IntrospectedColumn>();
-        for (IntrospectedColumn ic : columns) {
-            if (!ic.isGeneratedAlways()) {
-                filteredList.add(ic);
-            }
-        }
-        return filteredList;
-    }
-
-    public static List<IntrospectedColumn> removeIdentityAndGeneratedAlwaysColumns(List<IntrospectedColumn> columns) {
-        List<IntrospectedColumn> filteredList = new ArrayList<IntrospectedColumn>();
-        for (IntrospectedColumn ic : columns) {
-            if (!ic.isGeneratedAlways() && !ic.isIdentity()) {
-                filteredList.add(ic);
-            }
-        }
-        return filteredList;
-    }
+	
+	public static List<IntrospectedColumn> removeGeneratedAlwaysColumns(List<IntrospectedColumn> columns) {
+		List<IntrospectedColumn> filteredList = new ArrayList<IntrospectedColumn>();
+		for (IntrospectedColumn ic : columns) {
+			if (!ic.isGeneratedAlways()) {
+				filteredList.add(ic);
+			}
+		}
+		return filteredList;
+	}
+	
+	public static List<IntrospectedColumn> removeIdentityAndGeneratedAlwaysColumns(List<IntrospectedColumn> columns) {
+		List<IntrospectedColumn> filteredList = new ArrayList<IntrospectedColumn>();
+		for (IntrospectedColumn ic : columns) {
+			if (!ic.isGeneratedAlways() && !ic.isIdentity()) {
+				filteredList.add(ic);
+			}
+		}
+		return filteredList;
+	}
 }

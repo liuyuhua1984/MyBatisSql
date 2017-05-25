@@ -26,26 +26,24 @@ import org.mybatis.generator.api.dom.java.TopLevelClass;
  * @author Jeff Butler
  * 
  */
-public class ProviderUpdateByExampleWithBLOBsMethodGenerator extends
-        ProviderUpdateByExampleWithoutBLOBsMethodGenerator {
-
-    public ProviderUpdateByExampleWithBLOBsMethodGenerator(boolean useLegacyBuilder) {
-        super(useLegacyBuilder);
-    }
-
-    @Override
-    public String getMethodName() {
-        return introspectedTable.getUpdateByExampleWithBLOBsStatementId();
-    }
-
-    @Override
-    public List<IntrospectedColumn> getColumns() {
-        return introspectedTable.getAllColumns();
-    }
-
-    @Override
-    public boolean callPlugins(Method method, TopLevelClass topLevelClass) {
-        return context.getPlugins().providerUpdateByExampleWithBLOBsMethodGenerated(method, topLevelClass,
-                introspectedTable);
-    }
+public class ProviderUpdateByExampleWithBLOBsMethodGenerator extends ProviderUpdateByExampleWithoutBLOBsMethodGenerator {
+	
+	public ProviderUpdateByExampleWithBLOBsMethodGenerator(boolean useLegacyBuilder) {
+		super(useLegacyBuilder);
+	}
+	
+	@Override
+	public String getMethodName() {
+		return introspectedTable.getUpdateByExampleWithBLOBsStatementId();
+	}
+	
+	@Override
+	public List<IntrospectedColumn> getColumns() {
+		return introspectedTable.getAllColumns();
+	}
+	
+	@Override
+	public boolean callPlugins(Method method, TopLevelClass topLevelClass) {
+		return context.getPlugins().providerUpdateByExampleWithBLOBsMethodGenerated(method, topLevelClass, introspectedTable);
+	}
 }

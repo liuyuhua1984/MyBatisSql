@@ -31,75 +31,68 @@ import org.mybatis.generator.api.dom.java.TopLevelClass;
  * 
  */
 public class CountByExampleMethodGenerator extends AbstractDAOElementGenerator {
-
-    private boolean generateForJava5;
-
-    public CountByExampleMethodGenerator(boolean generateForJava5) {
-        super();
-        this.generateForJava5 = generateForJava5;
-    }
-
-    @Override
-    public void addImplementationElements(TopLevelClass topLevelClass) {
-        Set<FullyQualifiedJavaType> importedTypes = new TreeSet<FullyQualifiedJavaType>();
-        Method method = getMethodShell(importedTypes);
-
-        // generate the implementation method
-        StringBuilder sb = new StringBuilder();
-
-        sb.append("Long count = (Long)  "); //$NON-NLS-1$
-        sb.append(daoTemplate.getQueryForObjectMethod(introspectedTable
-                .getIbatis2SqlMapNamespace(), introspectedTable
-                .getCountByExampleStatementId(), "example")); //$NON-NLS-1$
-        method.addBodyLine(sb.toString());
-
-        if (generateForJava5) {
-            method.addBodyLine("return count;"); //$NON-NLS-1$
-        } else {
-            method.addBodyLine("return count.longValue();"); //$NON-NLS-1$
-        }
-
-        if (context.getPlugins().clientCountByExampleMethodGenerated(method,
-                topLevelClass, introspectedTable)) {
-            topLevelClass.addImportedTypes(importedTypes);
-            topLevelClass.addMethod(method);
-        }
-    }
-
-    @Override
-    public void addInterfaceElements(Interface interfaze) {
-        if (getExampleMethodVisibility() == JavaVisibility.PUBLIC) {
-            Set<FullyQualifiedJavaType> importedTypes = new TreeSet<FullyQualifiedJavaType>();
-            Method method = getMethodShell(importedTypes);
-
-            if (context.getPlugins().clientCountByExampleMethodGenerated(
-                    method, interfaze, introspectedTable)) {
-                interfaze.addImportedTypes(importedTypes);
-                interfaze.addMethod(method);
-            }
-        }
-    }
-
-    private Method getMethodShell(Set<FullyQualifiedJavaType> importedTypes) {
-        FullyQualifiedJavaType type = new FullyQualifiedJavaType(
-                introspectedTable.getExampleType());
-        importedTypes.add(type);
-
-        Method method = new Method();
-        method.setVisibility(getExampleMethodVisibility());
-        method.setReturnType(new FullyQualifiedJavaType("long")); //$NON-NLS-1$
-        method.setName(getDAOMethodNameCalculator()
-                .getCountByExampleMethodName(introspectedTable));
-        method.addParameter(new Parameter(type, "example")); //$NON-NLS-1$
-
-        for (FullyQualifiedJavaType fqjt : daoTemplate.getCheckedExceptions()) {
-            method.addException(fqjt);
-            importedTypes.add(fqjt);
-        }
-
-        context.getCommentGenerator().addGeneralMethodComment(method,
-                introspectedTable);
-
-        return method;
-    }
+	
+	private boolean generateForJava5;
+	
+	public CountByExampleMethodGenerator(boolean generateForJava5) {
+		super();
+		this.generateForJava5 = generateForJava5;
+	}
+	
+	@Override
+	public void addImplementationElements(TopLevelClass topLevelClass) {
+		Set<FullyQualifiedJavaType> importedTypes = new TreeSet<FullyQualifiedJavaType>();
+		Method method = getMethodShell(importedTypes);
+		
+		// generate the implementation method
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("Long count = (Long)  "); //$NON-NLS-1$
+		sb.append(daoTemplate.getQueryForObjectMethod(introspectedTable.getIbatis2SqlMapNamespace(), introspectedTable.getCountByExampleStatementId(), "example")); //$NON-NLS-1$
+		method.addBodyLine(sb.toString());
+		
+		if (generateForJava5) {
+			method.addBodyLine("return count;"); //$NON-NLS-1$
+		} else {
+			method.addBodyLine("return count.longValue();"); //$NON-NLS-1$
+		}
+		
+		if (context.getPlugins().clientCountByExampleMethodGenerated(method, topLevelClass, introspectedTable)) {
+			topLevelClass.addImportedTypes(importedTypes);
+			topLevelClass.addMethod(method);
+		}
+	}
+	
+	@Override
+	public void addInterfaceElements(Interface interfaze) {
+		if (getExampleMethodVisibility() == JavaVisibility.PUBLIC) {
+			Set<FullyQualifiedJavaType> importedTypes = new TreeSet<FullyQualifiedJavaType>();
+			Method method = getMethodShell(importedTypes);
+			
+			if (context.getPlugins().clientCountByExampleMethodGenerated(method, interfaze, introspectedTable)) {
+				interfaze.addImportedTypes(importedTypes);
+				interfaze.addMethod(method);
+			}
+		}
+	}
+	
+	private Method getMethodShell(Set<FullyQualifiedJavaType> importedTypes) {
+		FullyQualifiedJavaType type = new FullyQualifiedJavaType(introspectedTable.getExampleType());
+		importedTypes.add(type);
+		
+		Method method = new Method();
+		method.setVisibility(getExampleMethodVisibility());
+		method.setReturnType(new FullyQualifiedJavaType("long")); //$NON-NLS-1$
+		method.setName(getDAOMethodNameCalculator().getCountByExampleMethodName(introspectedTable));
+		method.addParameter(new Parameter(type, "example")); //$NON-NLS-1$
+		
+		for (FullyQualifiedJavaType fqjt : daoTemplate.getCheckedExceptions()) {
+			method.addException(fqjt);
+			importedTypes.add(fqjt);
+		}
+		
+		context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
+		
+		return method;
+	}
 }

@@ -29,24 +29,24 @@ import org.mybatis.generator.api.dom.xml.XmlElement;
  * 
  */
 public class PluginConfiguration extends TypedPropertyHolder {
-    public PluginConfiguration() {
-    }
-
-    public XmlElement toXmlElement() {
-        XmlElement answer = new XmlElement("plugin"); //$NON-NLS-1$
-        if (getConfigurationType() != null) {
-            answer.addAttribute(new Attribute("type", getConfigurationType())); //$NON-NLS-1$
-        }
-
-        addPropertyXmlElements(answer);
-
-        return answer;
-    }
-
-    public void validate(List<String> errors, String contextId) {
-        if (!stringHasValue(getConfigurationType())) {
-            errors.add(getString("ValidationError.17", //$NON-NLS-1$
-                    contextId));
-        }
-    }
+	public PluginConfiguration() {
+	}
+	
+	public XmlElement toXmlElement() {
+		XmlElement answer = new XmlElement("plugin"); //$NON-NLS-1$
+		if (getConfigurationType() != null) {
+			answer.addAttribute(new Attribute("type", getConfigurationType())); //$NON-NLS-1$
+		}
+		
+		addPropertyXmlElements(answer);
+		
+		return answer;
+	}
+	
+	public void validate(List<String> errors, String contextId) {
+		if (!stringHasValue(getConfigurationType())) {
+			errors.add(getString("ValidationError.17", //$NON-NLS-1$
+			        contextId));
+		}
+	}
 }

@@ -36,89 +36,80 @@ import org.mybatis.generator.codegen.mybatis3.ListUtilities;
  * @author Jeff Butler
  * 
  */
-public class ProviderUpdateByPrimaryKeySelectiveMethodGenerator extends
-        AbstractJavaProviderMethodGenerator {
-
-    public ProviderUpdateByPrimaryKeySelectiveMethodGenerator(boolean useLegacyBuilder) {
-        super(useLegacyBuilder);
-    }
-
-    @Override
-    public void addClassElements(TopLevelClass topLevelClass) {
-        Set<String> staticImports = new TreeSet<String>();
-        Set<FullyQualifiedJavaType> importedTypes = new TreeSet<FullyQualifiedJavaType>();
-
-        if (useLegacyBuilder) {
-        	staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.BEGIN"); //$NON-NLS-1$
-        	staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.UPDATE"); //$NON-NLS-1$
-        	staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.SET"); //$NON-NLS-1$
-        	staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.SQL"); //$NON-NLS-1$
-        	staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.WHERE"); //$NON-NLS-1$
-        } else {
-        	importedTypes.add(NEW_BUILDER_IMPORT);
-        }
-
-        FullyQualifiedJavaType fqjt = introspectedTable.getRules().calculateAllFieldsClass();
-        importedTypes.add(fqjt);
-        
-        Method method = new Method(introspectedTable.getUpdateByPrimaryKeySelectiveStatementId());
-        method.setReturnType(FullyQualifiedJavaType.getStringInstance());
-        method.setVisibility(JavaVisibility.PUBLIC);
-        method.addParameter(new Parameter(fqjt, "record")); //$NON-NLS-1$
-        
-        context.getCommentGenerator().addGeneralMethodComment(method,
-                introspectedTable);
-
-        if (useLegacyBuilder) {
-        	method.addBodyLine("BEGIN();"); //$NON-NLS-1$
-        } else {
-        	method.addBodyLine("SQL sql = new SQL();"); //$NON-NLS-1$
-        }
-        
-        method.addBodyLine(String.format("%sUPDATE(\"%s\");", //$NON-NLS-1$
-                builderPrefix,
-        		escapeStringForJava(introspectedTable.getFullyQualifiedTableNameAtRuntime())));
-        method.addBodyLine(""); //$NON-NLS-1$
-        
-        for (IntrospectedColumn introspectedColumn : ListUtilities.removeGeneratedAlwaysColumns(introspectedTable.getNonPrimaryKeyColumns())) {
-            if (!introspectedColumn.getFullyQualifiedJavaType().isPrimitive()) {
-                method.addBodyLine(String.format("if (record.%s() != null) {", //$NON-NLS-1$
-                    getGetterMethodName(introspectedColumn.getJavaProperty(),
-                            introspectedColumn.getFullyQualifiedJavaType())));
-            }
-
-            method.addBodyLine(String.format("%sSET(\"%s = %s\");", //$NON-NLS-1$
-            		builderPrefix,
-            		escapeStringForJava(getEscapedColumnName(introspectedColumn)),
-                    getParameterClause(introspectedColumn)));
-                
-            if (!introspectedColumn.getFullyQualifiedJavaType().isPrimitive()) {
-                method.addBodyLine("}"); //$NON-NLS-1$
-            }
-
-            method.addBodyLine(""); //$NON-NLS-1$
-        }
-
-        for (IntrospectedColumn introspectedColumn : introspectedTable.getPrimaryKeyColumns()) {
-            method.addBodyLine(String.format("%sWHERE(\"%s = %s\");", //$NON-NLS-1$
-            		builderPrefix,
-            		escapeStringForJava(getEscapedColumnName(introspectedColumn)),
-                    getParameterClause(introspectedColumn)));
-        }
-        
-        method.addBodyLine(""); //$NON-NLS-1$
-        
-        if (useLegacyBuilder) {
-        	method.addBodyLine("return SQL();"); //$NON-NLS-1$
-        } else {
-        	method.addBodyLine("return sql.toString();"); //$NON-NLS-1$
-        }
-
-        if (context.getPlugins().providerUpdateByPrimaryKeySelectiveMethodGenerated(method, topLevelClass,
-                introspectedTable)) {
-            topLevelClass.addStaticImports(staticImports);
-            topLevelClass.addImportedTypes(importedTypes);
-            topLevelClass.addMethod(method);
-        }
-    }
+public class ProviderUpdateByPrimaryKeySelectiveMethodGenerator extends AbstractJavaProviderMethodGenerator {
+	
+	public ProviderUpdateByPrimaryKeySelectiveMethodGenerator(boolean useLegacyBuilder) {
+		super(useLegacyBuilder);
+	}
+	
+	@Override
+	public void addClassElements(TopLevelClass topLevelClass) {
+		Set<String> staticImports = new TreeSet<String>();
+		Set<FullyQualifiedJavaType> importedTypes = new TreeSet<FullyQualifiedJavaType>();
+		
+		if (useLegacyBuilder) {
+			staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.BEGIN"); //$NON-NLS-1$
+			staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.UPDATE"); //$NON-NLS-1$
+			staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.SET"); //$NON-NLS-1$
+			staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.SQL"); //$NON-NLS-1$
+			staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.WHERE"); //$NON-NLS-1$
+		} else {
+			importedTypes.add(NEW_BUILDER_IMPORT);
+		}
+		
+		FullyQualifiedJavaType fqjt = introspectedTable.getRules().calculateAllFieldsClass();
+		importedTypes.add(fqjt);
+		
+		Method method = new Method(introspectedTable.getUpdateByPrimaryKeySelectiveStatementId());
+		method.setReturnType(FullyQualifiedJavaType.getStringInstance());
+		method.setVisibility(JavaVisibility.PUBLIC);
+		method.addParameter(new Parameter(fqjt, "record")); //$NON-NLS-1$
+		
+		context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
+		
+		if (useLegacyBuilder) {
+			method.addBodyLine("BEGIN();"); //$NON-NLS-1$
+		} else {
+			method.addBodyLine("SQL sql = new SQL();"); //$NON-NLS-1$
+		}
+		
+		method.addBodyLine(String.format("%sUPDATE(\"%s\");", //$NON-NLS-1$
+		        builderPrefix, escapeStringForJava(introspectedTable.getFullyQualifiedTableNameAtRuntime())));
+		method.addBodyLine(""); //$NON-NLS-1$
+		
+		for (IntrospectedColumn introspectedColumn : ListUtilities.removeGeneratedAlwaysColumns(introspectedTable.getNonPrimaryKeyColumns())) {
+			if (!introspectedColumn.getFullyQualifiedJavaType().isPrimitive()) {
+				method.addBodyLine(String.format("if (record.%s() != null) {", //$NON-NLS-1$
+				        getGetterMethodName(introspectedColumn.getJavaProperty(), introspectedColumn.getFullyQualifiedJavaType())));
+			}
+			
+			method.addBodyLine(String.format("%sSET(\"%s = %s\");", //$NON-NLS-1$
+			        builderPrefix, escapeStringForJava(getEscapedColumnName(introspectedColumn)), getParameterClause(introspectedColumn)));
+			
+			if (!introspectedColumn.getFullyQualifiedJavaType().isPrimitive()) {
+				method.addBodyLine("}"); //$NON-NLS-1$
+			}
+			
+			method.addBodyLine(""); //$NON-NLS-1$
+		}
+		
+		for (IntrospectedColumn introspectedColumn : introspectedTable.getPrimaryKeyColumns()) {
+			method.addBodyLine(String.format("%sWHERE(\"%s = %s\");", //$NON-NLS-1$
+			        builderPrefix, escapeStringForJava(getEscapedColumnName(introspectedColumn)), getParameterClause(introspectedColumn)));
+		}
+		
+		method.addBodyLine(""); //$NON-NLS-1$
+		
+		if (useLegacyBuilder) {
+			method.addBodyLine("return SQL();"); //$NON-NLS-1$
+		} else {
+			method.addBodyLine("return sql.toString();"); //$NON-NLS-1$
+		}
+		
+		if (context.getPlugins().providerUpdateByPrimaryKeySelectiveMethodGenerated(method, topLevelClass, introspectedTable)) {
+			topLevelClass.addStaticImports(staticImports);
+			topLevelClass.addImportedTypes(importedTypes);
+			topLevelClass.addMethod(method);
+		}
+	}
 }

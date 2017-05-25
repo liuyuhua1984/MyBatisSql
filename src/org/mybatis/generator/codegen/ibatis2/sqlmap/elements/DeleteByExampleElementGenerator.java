@@ -24,43 +24,38 @@ import org.mybatis.generator.api.dom.xml.XmlElement;
  * @author Jeff Butler
  * 
  */
-public class DeleteByExampleElementGenerator extends
-        AbstractXmlElementGenerator {
-
-    public DeleteByExampleElementGenerator() {
-        super();
-    }
-
-    @Override
-    public void addElements(XmlElement parentElement) {
-        XmlElement answer = new XmlElement("delete"); //$NON-NLS-1$
-
-        answer.addAttribute(new Attribute(
-                "id", introspectedTable.getDeleteByExampleStatementId())); //$NON-NLS-1$
-        answer.addAttribute(new Attribute(
-                "parameterClass", introspectedTable.getExampleType())); //$NON-NLS-1$
-
-        context.getCommentGenerator().addComment(answer);
-
-        StringBuilder sb = new StringBuilder();
-        sb.append("delete from "); //$NON-NLS-1$
-        sb.append(introspectedTable
-                .getAliasedFullyQualifiedTableNameAtRuntime());
-        answer.addElement(new TextElement(sb.toString()));
-
-        XmlElement includeElement = new XmlElement("include"); //$NON-NLS-1$
-        sb.setLength(0);
-        sb.append(introspectedTable.getIbatis2SqlMapNamespace());
-        sb.append('.');
-        sb.append(introspectedTable.getExampleWhereClauseId());
-        includeElement.addAttribute(new Attribute("refid", //$NON-NLS-1$
-                sb.toString()));
-
-        answer.addElement(includeElement);
-
-        if (context.getPlugins().sqlMapDeleteByExampleElementGenerated(
-                answer, introspectedTable)) {
-            parentElement.addElement(answer);
-        }
-    }
+public class DeleteByExampleElementGenerator extends AbstractXmlElementGenerator {
+	
+	public DeleteByExampleElementGenerator() {
+		super();
+	}
+	
+	@Override
+	public void addElements(XmlElement parentElement) {
+		XmlElement answer = new XmlElement("delete"); //$NON-NLS-1$
+		
+		answer.addAttribute(new Attribute("id", introspectedTable.getDeleteByExampleStatementId())); //$NON-NLS-1$
+		answer.addAttribute(new Attribute("parameterClass", introspectedTable.getExampleType())); //$NON-NLS-1$
+		
+		context.getCommentGenerator().addComment(answer);
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("delete from "); //$NON-NLS-1$
+		sb.append(introspectedTable.getAliasedFullyQualifiedTableNameAtRuntime());
+		answer.addElement(new TextElement(sb.toString()));
+		
+		XmlElement includeElement = new XmlElement("include"); //$NON-NLS-1$
+		sb.setLength(0);
+		sb.append(introspectedTable.getIbatis2SqlMapNamespace());
+		sb.append('.');
+		sb.append(introspectedTable.getExampleWhereClauseId());
+		includeElement.addAttribute(new Attribute("refid", //$NON-NLS-1$
+		        sb.toString()));
+		
+		answer.addElement(includeElement);
+		
+		if (context.getPlugins().sqlMapDeleteByExampleElementGenerated(answer, introspectedTable)) {
+			parentElement.addElement(answer);
+		}
+	}
 }

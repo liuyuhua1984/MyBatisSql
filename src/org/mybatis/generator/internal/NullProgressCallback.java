@@ -18,35 +18,34 @@ package org.mybatis.generator.internal;
 import org.mybatis.generator.api.ProgressCallback;
 
 /**
- * This class implements a progress callback that does nothing. It is used when
- * the client passes in a null for the ProgressCallback.
+ * This class implements a progress callback that does nothing. It is used when the client passes in a null for the ProgressCallback.
  * 
  * @author Jeff Butler
  */
 public class NullProgressCallback implements ProgressCallback {
-
-    /**
-     * 
-     */
-    public NullProgressCallback() {
-        super();
-    }
-
-    public void generationStarted(int totalTasks) {
-    }
-
-    public void introspectionStarted(int totalTasks) {
-    }
-
-    public void saveStarted(int totalTasks) {
-    }
-
-    public void startTask(String taskName) {
-    }
-
-    public void checkCancel() throws InterruptedException {
-    }
-
-    public void done() {
-    }
+	
+	/**
+	 * 
+	 */
+	public NullProgressCallback() {
+		super();
+	}
+	
+	public void generationStarted(int totalTasks) {
+	}
+	
+	public void introspectionStarted(int totalTasks) {
+	}
+	
+	public void saveStarted(int totalTasks) {
+	}
+	
+	public void startTask(String taskName) {
+	}
+	
+	public void checkCancel() throws InterruptedException {
+	}
+	
+	public void done() {
+	}
 }
