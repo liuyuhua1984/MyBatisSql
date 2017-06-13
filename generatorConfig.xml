@@ -8,8 +8,11 @@
 	<properties resource="init.properties" />
 	<classPathEntry location="${classPath}" />
 
-	<context id="DB2Tables"  defaultModelType ="flat" targetRuntime="MyBatis3">
+		
 
+	
+	<context id="DB2Tables"  defaultModelType ="flat" targetRuntime="MyBatis3">
+		<property name="javaFileEncoding" value="UTF-8"/>
 		<!--<plugin type="com.lyh.game.main.SerializablePlugin" />-->
 
 <!-- generate entity时，生成hashcode和equals方法 -->  
